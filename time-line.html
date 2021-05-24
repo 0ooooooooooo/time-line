@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>time line</title>
+	<style>
+		*{
+			padding: 0;
+			margin: 0;
+			box-sizing: border-box;
+		}
+		.history-timeline{
+			width: 900px;
+			height: 66px; 
+			position: absolute;
+			top: 0;
+			left: 600px;
+			background: rgba(16, 39, 100, 0.91);
+			border: 1px solid #1179E7;
+			display: flex;
+			justify-content: center;
+		}
+		.history-player-slider{
+			height: 30px;
+			top: 18px;
+			width: 737px;
+			position: relative;
+			top: 26px;
+		}
+		.scaleplate{
+			position: relative;
+			height: 24px;
+		}
+		.level-1{
+			width: 1px;
+			height: 18px;
+			background-color: rgba(16, 113, 215, 1);
+			position: absolute;
+			bottom: 0;
+		}
+		.level-2{
+			width: 1px;
+			height: 8px;
+			background-color: rgba(16, 113, 215, 1);
+			position: absolute;
+			bottom: 0;
+		}
+		.start-time,.end-time{
+			position: absolute;
+			padding: 3px 8px;
+			background: #1E4894;
+			color: #FFFFFF;
+			text-align: center;
+			line-height: 16px;
+			font-size: 12px;
+			top: 5px;
+		}
+		.start-time{
+			left: -37px;
+		}
+		.end-time{
+			right: -47px;
+		}
+		.progress{
+			height: 6px;
+			background-color: rgba(16, 113, 215, 1);
+			cursor: pointer;
+		}
+		.progress-passed{
+			height: 6px;
+			background-color: rgba(112, 250, 255, 1);
+		}
+		.progress-pop{
+			width: 100%;
+			position: absolute;
+			cursor: pointer;
+			top: 0;
+		}
+		.progress-pop-1{
+			top: -20px;
+			position: absolute;
+			width: 70px;
+			height: 22px;
+		}
+		.progress-pop-2{
+			top: -20px;
+			position: absolute;
+			width: 70px;
+			height: 22px;
+		}
+		.progress-pop-1-line,.progress-pop-2-line{
+			position: absolute;
+			width: 1px;
+			height: 24px;
+			top: 20px;
+			left: 0;
+			background: linear-gradient(to right, rgba(42,37,156,1), rgba(40,107,255,1));
+		}
+		.progress-pop-2-line{
+			background: rgba(44,47,85,1);
+		}
+		.progress-pop-1-num, .progress-pop-2-num{
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			font-size: 12px;
+			border-radius: 8px;
+			line-height: 1;
+			text-align: center;
+			color: #fff;
+			background: linear-gradient(to right, rgba(42,37,156,1), rgba(40,107,255,1));
+			padding: 5px 10px;
+			white-space: nowrap;
+			left: -50%;
+		}
+		.progress-pop-2-num{
+			background: rgba(44,47,85,1);
+			color: rgba(255, 255, 255, 0.4);
+		}
+		.time-out-button{
+			position: absolute;
+			left: 5px;
+			top: 50%;
+			transform: translateY(-50%);
+			color: #fff;
+			font-size: 14px;
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+	<div class="history-timeline">
+		<div class="history-player-slider">
+			<div class="scaleplate">
+				<div class="level-1" style="left: 0px;"></div>
+				<div class="level-2" style="left: 4%;"></div>
+				<div class="level-2" style="left: 8%;"></div>
+				<div class="level-2" style="left: 12%;"></div>
+				<div class="level-2" style="left: 16%;"></div>
+				<div class="level-1" style="left: 20%;"></div>
+				<div class="level-2" style="left: 24%;"></div>
+				<div class="level-2" style="left: 28%;"></div>
+				<div class="level-2" style="left: 32%;"></div>
+				<div class="level-2" style="left: 36%;"></div>
+				<div class="level-1" style="left: 40%;"></div>
+				<div class="level-2" style="left: 44%;"></div>
+				<div class="level-2" style="left: 48%;"></div>
+				<div class="level-2" style="left: 52%;"></div>
+				<div class="level-2" style="left: 56%;"></div>
+				<div class="level-1" style="left: 60%;"></div>
+				<div class="level-2" style="left: 64%;"></div>
+				<div class="level-2" style="left: 68%;"></div>
+				<div class="level-2" style="left: 72%;"></div>
+				<div class="level-2" style="left: 76%;"></div>
+				<div class="level-1" style="left: 80%;"></div>
+				<div class="level-2" style="left: 84%;"></div>
+				<div class="level-2" style="left: 88%;"></div>
+				<div class="level-2" style="left: 92%;"></div>
+				<div class="level-2" style="left: 96%;"></div>
+				<div class="level-1" style="left: 100%;"></div>
+				<div class="start-time">0秒</div>
+				<div class="end-time">10秒</div>
+			</div>
+			<div class="progress">
+				<div class="progress-passed" style="width: 0%;"></div>
+			</div>
+			<div class="progress-pop">
+				<!-- 跟随移动 -->
+				<div class="progress-pop-1">
+					<div class="progress-pop-1-line"></div>
+					<div class="progress-pop-1-num"></div>
+				</div>
+				<!-- hover显示 -->
+				<div class="progress-pop-2" style="display: none;">
+					<div class="progress-pop-2-line"></div>
+					<div class="progress-pop-2-num"></div>
+				</div>
+			</div>
+		</div>
+		<div class="time-out-button">暂停</div>
+	</div>
+</body>
+</html>
+
+<script>
+	// progress animation
+	let passed = document.getElementsByClassName('progress-passed')[0];
+	// progress
+	let progress = document.getElementsByClassName('progress')[0];
+	// progress translate dom
+	let pop_1 = document.getElementsByClassName('progress-pop-1')[0];
+	// progress content
+	let pop_1_num = document.getElementsByClassName('progress-pop-1-num')[0];
+	// hover translate dom
+	let pop_2 = document.getElementsByClassName('progress-pop-2')[0];
+	// hover content 
+	let pop_2_num = document.getElementsByClassName('progress-pop-2-num')[0];
+	// time out button 
+	let pause_button = document.getElementsByClassName('time-out-button')[0];
+	// progress width for calculate the percentage
+	let progressWidth = progress.offsetWidth;
+	// timeinterval
+	let time = null; // 定时器
+	// time
+	let time_num = 0; // 当前比例
+	// pause flag
+	let pause_flag = true; // 暂停按钮 true 执行 false 暂停
+
+	// 小数位数小于三位自动填充innerHTML内容
+	let getInnerHTML = (time) => {
+		let innerHTML = time / 1000;
+		let numToString = innerHTML.toString();
+		let decimal = numToString.split('.')[1];
+		let parstint = numToString.split('.')[0];
+		if (decimal && decimal.length === 2) {
+			innerHTML = numToString;
+		} else if (decimal && decimal.length === 1) {
+			innerHTML = numToString + '0';
+		} else if (decimal && decimal.length > 2) {
+			innerHTML = innerHTML.toFixed(2);
+		} else if (!decimal) {
+			innerHTML = numToString + '.00';
+		}
+		if (parstint == 10) {
+			innerHTML = '10.00';
+		}
+		return innerHTML;
+	};
+
+	// clear interval for pause animation
+	let stopTime = () => {
+		if (time) {
+			clearInterval(time);
+		}
+	};
+
+	// start interval for start animation
+	let startTime = () => {
+		time = setInterval(() => {
+			let innerHTML = getInnerHTML(time_num);
+			pop_1_num.innerHTML = `${innerHTML}秒`;
+			pop_1.style.left = (1 / 10000) * 100 * time_num + '%';
+			passed.style.width = (1 / 10000) * 100 * time_num + '%';
+			if (time_num >= 10000) {
+				stopTime();
+				pause_flag = false;
+			}
+			time_num += 50;
+		}, 50);
+	};
+	
+	startTime();
+
+	// pause button click
+	pause_button.addEventListener('click', function(e){
+		pause_flag =! pause_flag;
+		if (pause_flag) {
+			if (time_num >= 10000) {
+				time_num = 0;
+			}
+			startTime();
+			pause_button.innerHTML = '暂停';
+		} else {
+			stopTime();
+			pause_button.innerHTML = '开始';
+		}
+	});
+
+	// progress click 
+	progress.addEventListener('click', function(e){
+		stopTime();
+		// 当前鼠标点击距离定位容器位置
+		let offsetX = e.offsetX < 0 ? 0 : e.offsetX;
+		// 到达该百分比所需步骤
+		let step = (offsetX / progressWidth) * 10000;
+		let time_step_fixed = step.toFixed(0);
+		time_num = Number(time_step_fixed);
+		// 跟随进度条移动弹窗 innerHTML
+		let innerHTML = getInnerHTML(time_num);
+		pop_1_num.innerHTML = `${innerHTML}秒`;
+		// 跟随进度条移动弹窗 left值
+		pop_1.style.left = (1 / 10000) * 100 * time_num + '%';
+		// 进度条百分比
+		passed.style.width = (offsetX / progressWidth) * 100 + '%';
+		// 判断是否在暂停状态
+		if (!pause_flag) {
+			return false;
+		}
+		startTime();
+	});
+
+	// progress mousemove 
+	progress.addEventListener('mousemove', function(e){
+		// console.log(e);
+		// 当前鼠标点击距离定位容器位置
+		let offsetX = e.offsetX < 0 ? 0 : e.offsetX;
+		// 到达该百分比所需步骤
+		let time = (offsetX / progressWidth) * 10000;
+		time = time.toFixed(0);
+		// 跟随进度条移动弹窗 innerHTML
+		let innerHTML = getInnerHTML(time);
+		pop_2_num.innerHTML = `${innerHTML}秒`;
+		// 跟随进度条移动弹窗 left值
+		pop_2.style.left = (1 / 10000) * 100 * time + '%';
+		pop_2.style.display = 'block';
+	});
+
+	progress.addEventListener('mouseleave', function(e){
+		pop_2.style.display = 'none';
+	});
+</script>
+
